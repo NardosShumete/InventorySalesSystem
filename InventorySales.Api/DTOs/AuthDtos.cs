@@ -1,0 +1,20 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace InventorySales.Api.DTOs
+{
+    public class LoginDto
+    {
+        [Required]
+        public string Username { get; set; }
+        [Required]
+        public string Password { get; set; }
+    }
+
+    public class UserDto
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Role { get; set; }
+        public string Token { get; set; } // Simplified JWT or Session token
+    }
+}
