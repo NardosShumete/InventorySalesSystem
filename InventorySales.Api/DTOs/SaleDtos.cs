@@ -10,6 +10,8 @@ namespace InventorySales.Api.DTOs
         public DateTime Date { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal Tax { get; set; }
+        public int? UserId { get; set; }
+        public string Username { get; set; }
         public List<SalesDetailDto> Details { get; set; }
     }
 
@@ -26,6 +28,7 @@ namespace InventorySales.Api.DTOs
     {
         [Required]
         public List<CreateSalesDetailDto> Items { get; set; }
+        public int? UserId { get; set; }
     }
 
     public class CreateSalesDetailDto

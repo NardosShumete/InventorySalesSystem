@@ -15,6 +15,7 @@ namespace InventorySales.Desktop
         private void InitializeComponent()
         {
             sidebarPanel = new Panel();
+            lblCurrentUser = new Label();
             btnReports = new Button();
             btnUsers = new Button();
             btnSales = new Button();
@@ -47,6 +48,7 @@ namespace InventorySales.Desktop
             // sidebarPanel
             // 
             sidebarPanel.BackColor = Color.FromArgb(32, 58, 67);
+            sidebarPanel.Controls.Add(lblCurrentUser);
             sidebarPanel.Controls.Add(btnReports);
             sidebarPanel.Controls.Add(btnUsers);
             sidebarPanel.Controls.Add(btnSales);
@@ -58,8 +60,19 @@ namespace InventorySales.Desktop
             sidebarPanel.Dock = DockStyle.Left;
             sidebarPanel.Location = new Point(0, 0);
             sidebarPanel.Name = "sidebarPanel";
-            sidebarPanel.Size = new Size(274, 600);
+            sidebarPanel.Size = new Size(250, 600);
             sidebarPanel.TabIndex = 0;
+            // 
+            // lblCurrentUser
+            // 
+            lblCurrentUser.AutoSize = true;
+            lblCurrentUser.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblCurrentUser.ForeColor = Color.Gold;
+            lblCurrentUser.Location = new Point(20, 90);
+            lblCurrentUser.Name = "lblCurrentUser";
+            lblCurrentUser.Size = new Size(128, 28);
+            lblCurrentUser.TabIndex = 8;
+            lblCurrentUser.Text = "User: Admin";
             // 
             // btnReports
             // 
@@ -143,52 +156,56 @@ namespace InventorySales.Desktop
             lblBrand.ForeColor = Color.White;
             lblBrand.Location = new Point(20, 30);
             lblBrand.Name = "lblBrand";
-            lblBrand.Size = new Size(222, 45);
+            lblBrand.Size = new Size(223, 45);
             lblBrand.TabIndex = 0;
-            lblBrand.Text = "Inventory Sys";
+            lblBrand.Text = "Inventory HQ";
             // 
             // btnExit
             // 
+            btnExit.BackColor = Color.Red;
+            btnExit.Dock = DockStyle.Bottom;
             btnExit.FlatAppearance.BorderSize = 0;
             btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.Font = new Font("Segoe UI", 11F);
-            btnExit.ForeColor = Color.White;
-            btnExit.Location = new Point(0, 500);
+            btnExit.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            btnExit.ForeColor = Color.Black;
+            btnExit.Location = new Point(0, 510);
             btnExit.Name = "btnExit";
             btnExit.Padding = new Padding(20, 0, 0, 0);
-            btnExit.Size = new Size(220, 45);
+            btnExit.Size = new Size(250, 45);
             btnExit.TabIndex = 6;
             btnExit.Text = "Exit";
             btnExit.TextAlign = ContentAlignment.MiddleLeft;
-            btnExit.UseVisualStyleBackColor = true;
+            btnExit.UseVisualStyleBackColor = false;
             // 
             // btnLogout
             // 
+            btnLogout.BackColor = Color.Lime;
+            btnLogout.Dock = DockStyle.Bottom;
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Segoe UI", 11F);
-            btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(0, 550);
+            btnLogout.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            btnLogout.ForeColor = Color.Black;
+            btnLogout.Location = new Point(0, 555);
             btnLogout.Name = "btnLogout";
             btnLogout.Padding = new Padding(20, 0, 0, 0);
-            btnLogout.Size = new Size(220, 45);
+            btnLogout.Size = new Size(250, 45);
             btnLogout.TabIndex = 7;
             btnLogout.Text = "Logout";
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
-            btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.UseVisualStyleBackColor = false;
             // 
             // contentPanel
             // 
-            contentPanel.BackColor = SystemColors.ActiveCaption;
+            contentPanel.BackColor = Color.FromArgb(244, 247, 252);
             contentPanel.Controls.Add(card2);
             contentPanel.Controls.Add(card3);
             contentPanel.Controls.Add(card1);
             contentPanel.Controls.Add(lblHeader);
             contentPanel.Dock = DockStyle.Fill;
-            contentPanel.Location = new Point(274, 0);
+            contentPanel.Location = new Point(250, 0);
             contentPanel.Name = "contentPanel";
             contentPanel.Padding = new Padding(30);
-            contentPanel.Size = new Size(710, 600);
+            contentPanel.Size = new Size(734, 600);
             contentPanel.TabIndex = 1;
             // 
             // card2
@@ -333,6 +350,7 @@ namespace InventorySales.Desktop
             Name = "DashboardForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";
+            WindowState = FormWindowState.Maximized;
             sidebarPanel.ResumeLayout(false);
             sidebarPanel.PerformLayout();
             contentPanel.ResumeLayout(false);
@@ -374,5 +392,6 @@ namespace InventorySales.Desktop
         private System.Windows.Forms.Label lblVal3;
         private System.Windows.Forms.Label lblTitle3;
         private System.Windows.Forms.Panel strip3;
+        private System.Windows.Forms.Label lblCurrentUser;
     }
 }

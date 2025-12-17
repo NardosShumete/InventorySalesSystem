@@ -62,7 +62,7 @@ namespace InventorySales.Api.Controllers
 
                 sale.TotalAmount = totalAmount + (totalAmount * 0.15m); // Subtotal + Tax
                 sale.Tax = totalAmount * 0.15m; // 15% Tax
-                sale.UserId = 1; // Default to admin for now, or get from User context
+                sale.UserId = createSaleDto.UserId; // Use logged-in user's ID
 
                 _context.Sales.Add(sale);
                 await _context.SaveChangesAsync();
@@ -83,6 +83,7 @@ namespace InventorySales.Api.Controllers
             var sale = await _context.Sales
                 .Include(s => s.SalesDetails)
                 .ThenInclude(sd => sd.Product)
+                .Include(s => s.User)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (sale == null) return NotFound();
@@ -91,23 +92,34 @@ namespace InventorySales.Api.Controllers
         }
 
         [HttpGet("report")]
-        public async Task<ActionResult<IEnumerable<SaleDto>>> GetSalesReport([FromQuery] DateTime? date, [FromQuery] int? id)
+        public async Task<ActionResult<IEnumerable<SaleDto>>> GetSalesReport(
+            [FromQuery] DateTime? startDate, 
+            [FromQuery] DateTime? endDate, 
+            [FromQuery] int? id)
         {
             var query = _context.Sales
                 .Include(s => s.SalesDetails)
+                    .ThenInclude(sd => sd.Product)
+                .Include(s => s.User)
                 .AsQueryable();
 
             if (id.HasValue)
             {
                 query = query.Where(s => s.Id == id.Value);
             }
-            else if (date.HasValue)
+            else
             {
-                // Filter by specific day
-                query = query.Where(s => s.Date.Date == date.Value.Date);
+                if (startDate.HasValue)
+                {
+                    query = query.Where(s => s.Date >= startDate.Value);
+                }
+                if (endDate.HasValue)
+                {
+                    query = query.Where(s => s.Date <= endDate.Value);
+                }
             }
 
-            var sales = await query.ToListAsync();
+            var sales = await query.OrderByDescending(s => s.Date).ToListAsync();
             return Ok(_mapper.Map<IEnumerable<SaleDto>>(sales));
         }
     }

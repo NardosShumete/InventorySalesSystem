@@ -4,6 +4,7 @@ using InventorySales.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventorySales.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251217182056_AddUniqueCategoryName")]
+    partial class AddUniqueCategoryName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,7 +216,7 @@ namespace InventorySales.Data.Migrations
                         new
                         {
                             Id = 1,
-                            PasswordHash = "$2a$11$Ka8dOJsdn8/r9XFAvZrHu.4wh6.st5D5GGGQpBBKhUr8HGGFDyQ7u",
+                            PasswordHash = "12345678",
                             Role = "Admin",
                             Username = "admin"
                         });

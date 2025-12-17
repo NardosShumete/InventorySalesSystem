@@ -1,6 +1,6 @@
 namespace InventorySales.Desktop
 {
-    partial class AddProductForm
+    partial class UpdateProductForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -38,9 +38,9 @@ namespace InventorySales.Desktop
             lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblTitle.Location = new Point(55, 9);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(187, 38);
+            lblTitle.Size = new Size(210, 38);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "New Product";
+            lblTitle.Text = "Update Product";
             // 
             // lblName
             // 
@@ -75,6 +75,17 @@ namespace InventorySales.Desktop
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(250, 36);
             cmbCategory.TabIndex = 4;
+            // 
+            // btnAddCategory
+            // 
+            btnAddCategory.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnAddCategory.Location = new Point(280, 166);
+            btnAddCategory.Name = "btnAddCategory";
+            btnAddCategory.Size = new Size(40, 36);
+            btnAddCategory.TabIndex = 50;
+            btnAddCategory.Text = "+";
+            btnAddCategory.UseVisualStyleBackColor = true;
+            btnAddCategory.Click += btnAddCategory_Click;
             // 
             // lblPrice
             // 
@@ -114,7 +125,7 @@ namespace InventorySales.Desktop
             // lblReorder
             // 
             lblReorder.AutoSize = true;
-            lblReorder.Location = new Point(20, 408);
+            lblReorder.Location = new Point(20, 351);
             lblReorder.Name = "lblReorder";
             lblReorder.Size = new Size(130, 28);
             lblReorder.TabIndex = 9;
@@ -122,7 +133,7 @@ namespace InventorySales.Desktop
             // 
             // numReorder
             // 
-            numReorder.Location = new Point(20, 439);
+            numReorder.Location = new Point(20, 382);
             numReorder.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numReorder.Name = "numReorder";
             numReorder.Size = new Size(250, 34);
@@ -133,43 +144,32 @@ namespace InventorySales.Desktop
             lblReorderDesc.AutoSize = true;
             lblReorderDesc.Font = new Font("Segoe UI", 8F, FontStyle.Italic);
             lblReorderDesc.ForeColor = Color.DimGray;
-            lblReorderDesc.Location = new Point(20, 372);
+            lblReorderDesc.Location = new Point(20, 319);
             lblReorderDesc.Name = "lblReorderDesc";
-            lblReorderDesc.Size = new Size(228, 21);
+            lblReorderDesc.Size = new Size(245, 21);
             lblReorderDesc.TabIndex = 11;
             lblReorderDesc.Text = "* Warns when stock falls below.";
             // 
             // btnSave
             // 
-            btnSave.BackColor = Color.SeaGreen;
+            btnSave.BackColor = Color.DodgerBlue;
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(150, 479);
+            btnSave.Location = new Point(150, 422);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(120, 48);
             btnSave.TabIndex = 11;
-            btnSave.Text = "SAVE";
+            btnSave.Text = "UPDATE";
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
-            // 
-            // btnAddCategory
-            // 
-            btnAddCategory.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnAddCategory.Location = new Point(280, 166);
-            btnAddCategory.Name = "btnAddCategory";
-            btnAddCategory.Size = new Size(40, 36);
-            btnAddCategory.TabIndex = 50;
-            btnAddCategory.Text = "+";
-            btnAddCategory.UseVisualStyleBackColor = true;
-            btnAddCategory.Click += btnAddCategory_Click;
             // 
             // btnCancel
             // 
             btnCancel.BackColor = Color.Gray;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(20, 479);
+            btnCancel.Location = new Point(20, 422);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(100, 48);
             btnCancel.TabIndex = 12;
@@ -177,12 +177,12 @@ namespace InventorySales.Desktop
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
-            // AddProductForm
+            // UpdateProductForm
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.InactiveCaption;
-            ClientSize = new Size(443, 597);
+            ClientSize = new Size(428, 493);
             Controls.Add(btnCancel);
             Controls.Add(btnAddCategory);
             Controls.Add(btnSave);
@@ -201,9 +201,9 @@ namespace InventorySales.Desktop
             Font = new Font("Segoe UI", 10F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
-            Name = "AddProductForm";
+            Name = "UpdateProductForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Add Product";
+            Text = "Update Product";
             ((System.ComponentModel.ISupportInitialize)numPrice).EndInit();
             ((System.ComponentModel.ISupportInitialize)numStock).EndInit();
             ((System.ComponentModel.ISupportInitialize)numReorder).EndInit();

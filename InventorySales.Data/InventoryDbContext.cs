@@ -19,15 +19,20 @@ namespace InventorySales.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Add unique constraint for Category Name
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
             // Seeding Data
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Electronics", Description = "Electronic Gadgets and Devices" },
                 new Category { Id = 2, Name = "Groceries", Description = "Daily household items" }
             );
 
-            // Password is "12345678" (In real app, hash this properly)
+            // Password is "12345678" (Now hashed with BCrypt)
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "admin", PasswordHash = "12345678", Role = "Admin" }
+                new User { Id = 1, Username = "admin", PasswordHash = "$2a$11$Ka8dOJsdn8/r9XFAvZrHu.4wh6.st5D5GGGQpBBKhUr8HGGFDyQ7u", Role = "Admin" }
             );
 
             modelBuilder.Entity<Product>().HasData(

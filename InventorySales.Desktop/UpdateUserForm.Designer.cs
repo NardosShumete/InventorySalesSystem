@@ -1,6 +1,6 @@
 namespace InventorySales.Desktop
 {
-    partial class AddRegistrationForm
+    partial class UpdateUserForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -20,6 +20,7 @@ namespace InventorySales.Desktop
             lblRole = new Label();
             cmbRole = new ComboBox();
             btnSave = new Button();
+            lblNote = new Label();
             SuspendLayout();
             // 
             // lblTitle
@@ -29,9 +30,9 @@ namespace InventorySales.Desktop
             lblTitle.ForeColor = Color.FromArgb(32, 58, 67);
             lblTitle.Location = new Point(20, 20);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(256, 45);
+            lblTitle.Size = new Size(205, 45);
             lblTitle.TabIndex = 7;
-            lblTitle.Text = "Register User";
+            lblTitle.Text = "Update User";
             // 
             // lblUser
             // 
@@ -68,11 +69,20 @@ namespace InventorySales.Desktop
             txtPass.Size = new Size(300, 34);
             txtPass.TabIndex = 3;
             // 
+            // lblNote
+            // 
+            lblNote.AutoSize = true;
+            lblNote.Font = new Font("Segoe UI", 8F, FontStyle.Italic);
+            lblNote.Location = new Point(20, 230);
+            lblNote.Name = "lblNote";
+            lblNote.Size = new Size(230, 21);
+            lblNote.Text = "(Leave blank to keep current)";
+            // 
             // lblRole
             // 
             lblRole.AutoSize = true;
             lblRole.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblRole.Location = new Point(20, 240);
+            lblRole.Location = new Point(20, 260);
             lblRole.Name = "lblRole";
             lblRole.Size = new Size(59, 28);
             lblRole.TabIndex = 2;
@@ -82,33 +92,34 @@ namespace InventorySales.Desktop
             // 
             cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRole.Items.AddRange(new object[] { "Admin", "User", "Manager" });
-            cmbRole.Location = new Point(20, 275);
+            cmbRole.Location = new Point(20, 295);
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(300, 36);
             cmbRole.TabIndex = 1;
             // 
             // btnSave
             // 
-            btnSave.BackColor = Color.FromArgb(67, 160, 71);
+            btnSave.BackColor = Color.FromArgb(32, 58, 67);
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(20, 340);
+            btnSave.Location = new Point(20, 350);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(300, 50);
             btnSave.TabIndex = 0;
-            btnSave.Text = "Create Account";
+            btnSave.Text = "Save Changes";
             btnSave.UseVisualStyleBackColor = false;
             // 
-            // AddRegistrationForm
+            // UpdateUserForm
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 247, 252);
-            ClientSize = new Size(350, 420);
+            ClientSize = new Size(350, 430);
             Controls.Add(btnSave);
             Controls.Add(cmbRole);
             Controls.Add(lblRole);
+            Controls.Add(lblNote);
             Controls.Add(txtPass);
             Controls.Add(lblPass);
             Controls.Add(txtUser);
@@ -117,9 +128,9 @@ namespace InventorySales.Desktop
             Font = new Font("Segoe UI", 10F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
-            Name = "AddRegistrationForm";
+            Name = "UpdateUserForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Registration";
+            Text = "Update User";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -129,6 +140,7 @@ namespace InventorySales.Desktop
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.Label lblPass;
         private System.Windows.Forms.TextBox txtPass;
+        private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.Label lblRole;
         private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.Button btnSave;

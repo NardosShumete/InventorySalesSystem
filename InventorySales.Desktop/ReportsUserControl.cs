@@ -20,37 +20,47 @@ namespace InventorySales.Desktop
             btnGenerate.Click += BtnGenerate_Click;
             btnFilter.Click += BtnFilter_Click;
             
+            cmbPeriod.SelectedIndex = 0; // Default to Daily
+
             // Load Today's sales by default
-            this.Load += async (s, e) => await LoadSalesInternal(DateTime.Today, null);
+            this.Load += async (s, e) => await LoadSalesInternal(DateTime.Today, DateTime.Today.AddDays(1).AddTicks(-1));
         }
 
         public async void RefreshData()
         {
-            await LoadSalesInternal(DateTime.Today, null);
+            await LoadSalesInternal(DateTime.Today, DateTime.Today.AddDays(1).AddTicks(-1));
         }
 
         private async void BtnFilter_Click(object sender, EventArgs e)
         {
-            DateTime? date = dtpFilter.Value;
-            int? id = null;
-            if (int.TryParse(txtIdFilter.Text, out int parsedId))
+            DateTime date = dtpFilter.Value.Date;
+            DateTime startDate = date;
+            DateTime endDate = date.AddDays(1).AddTicks(-1);
+
+            string period = cmbPeriod.SelectedItem?.ToString() ?? "Daily";
+
+            if (period == "Weekly")
             {
-                id = parsedId;
-                date = null; // ID takes precedence? Or filter both? 
-                // Requirement: "user can select by id or date". Usually implies ID is specific enough.
+                // Start of week (Monday)
+                int diff = (7 + (date.DayOfWeek - DayOfWeek.Monday)) % 7;
+                startDate = date.AddDays(-1 * diff).Date;
+                endDate = startDate.AddDays(7).AddTicks(-1);
+            }
+            else if (period == "Monthly")
+            {
+                startDate = new DateTime(date.Year, date.Month, 1);
+                endDate = startDate.AddMonths(1).AddTicks(-1);
             }
             
-            await LoadSalesInternal(date, id);
+            await LoadSalesInternal(startDate, endDate);
         }
 
-        private async System.Threading.Tasks.Task LoadSalesInternal(DateTime? date, int? id)
+        private async System.Threading.Tasks.Task LoadSalesInternal(DateTime startDate, DateTime endDate)
         {
             try
             {
-                string query = "sales/report?";
-                if (id.HasValue) query += $"id={id}";
-                else if (date.HasValue) query += $"date={date.Value:yyyy-MM-dd}";
-
+                string query = $"sales/report?startDate={startDate:yyyy-MM-ddTHH:mm:ss}&endDate={endDate:yyyy-MM-ddTHH:mm:ss}";
+                
                 _currentData = await _apiService.GetAsync<List<SaleDto>>(query);
                 gridSales.DataSource = _currentData;
             }
@@ -76,11 +86,24 @@ namespace InventorySales.Desktop
             decimal total = 0;
             foreach (var sale in _currentData)
             {
-                report.AppendLine($"Sale #{sale.Id} | Date: {sale.Date} | Total (Inc. Tax): {sale.TotalAmount:C2} | Tax: {sale.Tax:C2}");
+                string userInfo = sale.UserId.HasValue 
+                    ? $" | Sold By: {sale.Username} (ID: {sale.UserId})" 
+                    : " | Sold By: Unknown";
+                    
+                report.AppendLine($"Sale #{sale.Id} | Date: {sale.Date} | Total (Inc. Tax): {sale.TotalAmount:C2} | Tax: {sale.Tax:C2}{userInfo}");
+                
+                if (sale.Details != null && sale.Details.Count > 0)
+                {
+                    report.AppendLine("   Products:");
+                    foreach (var item in sale.Details)
+                    {
+                        report.AppendLine($"     - [ID: {item.ProductId}] {item.ProductName} x {item.Quantity} @ {item.UnitPrice:C2} = {item.SubTotal:C2}");
+                    }
+                }
+                report.AppendLine("-------------------------------");
                 total += sale.TotalAmount;
             }
             
-            report.AppendLine("-------------------------------");
             report.AppendLine($"TOTAL SALES: {total:C2}");
 
             // Save File Dialog

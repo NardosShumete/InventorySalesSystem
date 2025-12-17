@@ -17,6 +17,7 @@ namespace InventorySales.Desktop
         {
             InitializeComponent();
             InitializeNavigation();
+            lblCurrentUser.Text = $"User: {Session.Username} ({Session.Role})";
         }
 
         private void InitializeNavigation()
@@ -98,24 +99,29 @@ namespace InventorySales.Desktop
             catch { }
         }
 
+        private bool _isLoggingOut = false;
+
         private void BtnExit_Click(object sender, EventArgs e)
         {
-            // Close entire application
             Application.Exit();
         }
 
         private void BtnLogout_Click(object sender, EventArgs e)
         {
-            // Create and show new login form
+            _isLoggingOut = true;
+            this.Close();
+            
             var loginForm = new LoginForm();
             loginForm.Show();
-            
-            // Remove the FormClosed event handler to prevent Application.Exit
-            this.FormClosed -= (s, args) => Application.Exit();
-            
-            // Close dashboard
-            this.Close();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (!_isLoggingOut && e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
     }
-
 }

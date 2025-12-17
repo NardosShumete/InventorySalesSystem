@@ -15,109 +15,129 @@ namespace InventorySales.Desktop
             lblTitle = new Label();
             gridSales = new DataGridView();
             dtpFilter = new DateTimePicker();
-            txtIdFilter = new TextBox();
             btnFilter = new Button();
             btnGenerate = new Button();
             lblFilterDate = new Label();
-            lblFilterId = new Label();
+            lblPeriod = new Label();
+            cmbPeriod = new ComboBox();
+            panelFilterCard = new Panel();
             ((System.ComponentModel.ISupportInitialize)gridSales).BeginInit();
+            panelFilterCard.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(32, 58, 67);
             lblTitle.Location = new Point(20, 20);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(266, 45);
+            lblTitle.Size = new Size(323, 48);
             lblTitle.TabIndex = 7;
-            lblTitle.Text = "Reports & History";
+            lblTitle.Text = "Reports & Analytics";
             // 
             // gridSales
             // 
             gridSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridSales.BackgroundColor = Color.White;
+            gridSales.BorderStyle = BorderStyle.None;
             gridSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridSales.Location = new Point(20, 149);
+            gridSales.Dock = DockStyle.Bottom;
+            gridSales.Location = new Point(0, 316);
             gridSales.Name = "gridSales";
             gridSales.RowHeadersWidth = 62;
-            gridSales.Size = new Size(700, 300);
+            gridSales.Size = new Size(916, 365);
             gridSales.TabIndex = 6;
             // 
             // dtpFilter
             // 
             dtpFilter.Format = DateTimePickerFormat.Short;
-            dtpFilter.Location = new Point(132, 92);
+            dtpFilter.Location = new Point(100, 23);
             dtpFilter.Name = "dtpFilter";
-            dtpFilter.Size = new Size(120, 34);
+            dtpFilter.Size = new Size(150, 34);
             dtpFilter.TabIndex = 4;
-            // 
-            // txtIdFilter
-            // 
-            txtIdFilter.Location = new Point(456, 89);
-            txtIdFilter.Name = "txtIdFilter";
-            txtIdFilter.Size = new Size(100, 34);
-            txtIdFilter.TabIndex = 2;
             // 
             // btnFilter
             // 
-            btnFilter.BackColor = Color.RosyBrown;
+            btnFilter.BackColor = Color.FromArgb(32, 58, 67);
+            btnFilter.FlatStyle = FlatStyle.Flat;
             btnFilter.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnFilter.Location = new Point(571, 75);
+            btnFilter.ForeColor = Color.White;
+            btnFilter.Location = new Point(680, 15);
             btnFilter.Name = "btnFilter";
-            btnFilter.Size = new Size(149, 57);
+            btnFilter.Size = new Size(170, 50);
             btnFilter.TabIndex = 1;
-            btnFilter.Text = "Filter";
+            btnFilter.Text = "Search Data";
             btnFilter.UseVisualStyleBackColor = false;
             // 
             // btnGenerate
             // 
-            btnGenerate.BackColor = Color.DarkSlateBlue;
+            btnGenerate.BackColor = Color.FromArgb(67, 160, 71);
             btnGenerate.FlatStyle = FlatStyle.Flat;
             btnGenerate.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnGenerate.ForeColor = Color.White;
-            btnGenerate.Location = new Point(20, 480);
+            btnGenerate.Location = new Point(20, 236);
             btnGenerate.Name = "btnGenerate";
-            btnGenerate.Size = new Size(374, 50);
+            btnGenerate.Size = new Size(300, 55);
             btnGenerate.TabIndex = 0;
-            btnGenerate.Text = "Generate Report File";
+            btnGenerate.Text = "Export Report (.txt)";
             btnGenerate.UseVisualStyleBackColor = false;
             // 
             // lblFilterDate
             // 
             lblFilterDate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblFilterDate.Location = new Point(20, 95);
+            lblFilterDate.Location = new Point(20, 26);
             lblFilterDate.Name = "lblFilterDate";
-            lblFilterDate.Size = new Size(106, 31);
+            lblFilterDate.Size = new Size(74, 31);
             lblFilterDate.TabIndex = 5;
             lblFilterDate.Text = "Date:";
             // 
-            // lblFilterId
+            // lblPeriod
             // 
-            lblFilterId.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblFilterId.Location = new Point(293, 89);
-            lblFilterId.Name = "lblFilterId";
-            lblFilterId.Size = new Size(157, 34);
-            lblFilterId.TabIndex = 3;
-            lblFilterId.Text = "Sale ID:";
+            lblPeriod.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblPeriod.Location = new Point(280, 26);
+            lblPeriod.Name = "lblPeriod";
+            lblPeriod.Size = new Size(100, 31);
+            lblPeriod.TabIndex = 8;
+            lblPeriod.Text = "Period:";
+            // 
+            // cmbPeriod
+            // 
+            cmbPeriod.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPeriod.FormattingEnabled = true;
+            cmbPeriod.Items.AddRange(new object[] { "Daily", "Weekly", "Monthly" });
+            cmbPeriod.Location = new Point(380, 23);
+            cmbPeriod.Name = "cmbPeriod";
+            cmbPeriod.Size = new Size(150, 36);
+            cmbPeriod.TabIndex = 9;
+            // 
+            // panelFilterCard
+            // 
+            panelFilterCard.BackColor = Color.White;
+            panelFilterCard.Controls.Add(lblFilterDate);
+            panelFilterCard.Controls.Add(dtpFilter);
+            panelFilterCard.Controls.Add(lblPeriod);
+            panelFilterCard.Controls.Add(cmbPeriod);
+            panelFilterCard.Controls.Add(btnFilter);
+            panelFilterCard.Location = new Point(20, 85);
+            panelFilterCard.Name = "panelFilterCard";
+            panelFilterCard.Size = new Size(870, 80);
+            panelFilterCard.TabIndex = 10;
             // 
             // ReportsUserControl
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.FromArgb(244, 247, 252);
+            Controls.Add(panelFilterCard);
             Controls.Add(btnGenerate);
-            Controls.Add(btnFilter);
-            Controls.Add(txtIdFilter);
-            Controls.Add(lblFilterId);
-            Controls.Add(dtpFilter);
-            Controls.Add(lblFilterDate);
             Controls.Add(gridSales);
             Controls.Add(lblTitle);
             Font = new Font("Segoe UI", 10F);
             Name = "ReportsUserControl";
-            Size = new Size(916, 544);
+            Size = new Size(916, 681);
             ((System.ComponentModel.ISupportInitialize)gridSales).EndInit();
+            panelFilterCard.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -125,10 +145,11 @@ namespace InventorySales.Desktop
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridView gridSales;
         private System.Windows.Forms.DateTimePicker dtpFilter;
-        private System.Windows.Forms.TextBox txtIdFilter;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Label lblFilterDate;
-        private System.Windows.Forms.Label lblFilterId;
+        private System.Windows.Forms.Label lblPeriod;
+        private System.Windows.Forms.ComboBox cmbPeriod;
         private System.Windows.Forms.Button btnGenerate;
+        private System.Windows.Forms.Panel panelFilterCard;
     }
 }

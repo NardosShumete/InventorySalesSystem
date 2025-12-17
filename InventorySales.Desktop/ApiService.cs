@@ -30,17 +30,44 @@ namespace InventorySales.Desktop
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             
             var response = await _httpClient.PostAsync($"{BaseUrl}/{endpoint}", content);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMsg = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Error: {response.StatusCode} - {errorMsg}");
+            }
             
             var resultJson = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<TResponse>(resultJson);
         }
 
+        public async Task PutAsync<TRequest>(string endpoint, TRequest data)
+        {
+            var json = JsonConvert.SerializeObject(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            var response = await _httpClient.PutAsync($"{BaseUrl}/{endpoint}", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMsg = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Error: {response.StatusCode} - {errorMsg}");
+            }
+        }
+
         public async Task DeleteAsync(string endpoint)
         {
             var response = await _httpClient.DeleteAsync($"{BaseUrl}/{endpoint}");
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMsg = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Error: {response.StatusCode} - {errorMsg}");
+            }
         }
+    }
+
+    public class CreateCategoryDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 
     public class RegisterDto
@@ -56,6 +83,7 @@ namespace InventorySales.Desktop
         public string Username { get; set; }
         public string Role { get; set; }
         public string Token { get; set; }
+        public int PerformancePoints { get; set; }
     }
 
     public class DashboardDto
@@ -71,7 +99,9 @@ namespace InventorySales.Desktop
         public DateTime Date { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal Tax { get; set; }
-        public List<SalesDetailDto> SalesDetails { get; set; }
+        public int? UserId { get; set; }
+        public string Username { get; set; }
+        public List<SalesDetailDto> Details { get; set; }
     }
 
     public class SalesDetailDto
@@ -82,4 +112,36 @@ namespace InventorySales.Desktop
         public decimal UnitPrice { get; set; }
         public decimal SubTotal { get; set; }
     }
+
+    public class CategoryDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class CreateProductDto
+    {
+        public string Name { get; set; }
+        public int CategoryId { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int StockQuantity { get; set; }
+        public int ReorderLevel { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+    }
+
+    public class ProductDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int StockQuantity { get; set; }
+        public int ReorderLevel { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+    }
 }
+

@@ -16,5 +16,6 @@ namespace InventorySales.Api.DTOs
         public string Username { get; set; }
         public string Role { get; set; }
         public string Token { get; set; } // Simplified JWT or Session token
+        public int PerformancePoints { get; set; }
     }
 }

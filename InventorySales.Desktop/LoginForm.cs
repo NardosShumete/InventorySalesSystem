@@ -42,12 +42,12 @@ namespace InventorySales.Desktop
                 var result = await _apiService.PostAsync<LoginDto, UserDto>("auth/login", loginDto);
                 
                 // Store Session
+                Session.UserId = result.Id;
                 Session.Username = result.Username;
                 Session.Role = result.Role;
 
                 // Show dashboard
                 var dashboard = new DashboardForm();
-                dashboard.FormClosed += (s, args) => Application.Exit(); // Exit app when dashboard closes
                 dashboard.Show();
                 
                 // Close login form

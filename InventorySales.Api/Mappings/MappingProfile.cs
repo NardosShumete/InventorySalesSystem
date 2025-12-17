@@ -16,7 +16,8 @@ namespace InventorySales.Api.Mappings
             CreateMap<CreateProductDto, Product>();
 
             CreateMap<Sale, SaleDto>()
-                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.SalesDetails));
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.SalesDetails))
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User != null ? src.User.Username : "Unknown"));
             
             CreateMap<SalesDetail, SalesDetailDto>()
                  .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));

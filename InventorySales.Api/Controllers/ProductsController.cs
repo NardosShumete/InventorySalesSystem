@@ -80,9 +80,16 @@ namespace InventorySales.Api.Controllers
         }
 
         [HttpPost("categories")]
-        public async Task<ActionResult<CategoryDto>> CreateCategory(CategoryDto categoryDto)
+        public async Task<ActionResult<CategoryDto>> CreateCategory(CreateCategoryDto createCategoryDto)
         {
-            var category = _mapper.Map<Category>(categoryDto);
+            // Check if category with same name already exists
+            var existingCategories = await _categoryRepo.GetAllAsync();
+            if (existingCategories.Any(c => c.Name.Equals(createCategoryDto.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                return BadRequest(new { message = "A category with this name already exists." });
+            }
+
+            var category = _mapper.Map<Category>(createCategoryDto);
             await _categoryRepo.AddAsync(category);
             return CreatedAtAction(nameof(GetCategories), new { id = category.Id }, _mapper.Map<CategoryDto>(category));
         }

@@ -14,6 +14,10 @@ namespace InventorySales.Desktop
             _apiService = new ApiService();
             btnAdd.Click += BtnAdd_Click;
             btnDelete.Click += BtnDelete_Click;
+            btnUpdate.Click += BtnUpdate_Click;
+            btnFilterId.Click += (s, e) => LoadUsers(txtIdFilter.Text, null);
+            btnFilterName.Click += (s, e) => LoadUsers(null, txtNameFilter.Text);
+
             this.Load += (s, e) => LoadUsers();
         }
 
@@ -24,51 +28,60 @@ namespace InventorySales.Desktop
             form.ShowDialog();
         }
 
-        private async void LoadUsers()
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            if (gridUsers.CurrentRow?.DataBoundItem is UserDto user)
+            {
+                var form = new UpdateUserForm(user);
+                form.UserUpdated += (s, args) => LoadUsers();
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to update.");
+            }
+        }
+
+        private async void LoadUsers(string idFilter = null, string nameFilter = null)
         {
             try
             {
-                var users = await _apiService.GetAsync<List<UserDto>>("auth");
+                string query = "auth";
+                var paramsList = new List<string>();
+                if (!string.IsNullOrEmpty(idFilter)) paramsList.Add($"id={idFilter}");
+                if (!string.IsNullOrEmpty(nameFilter)) paramsList.Add($"name={nameFilter}");
+                
+                if (paramsList.Count > 0)
+                {
+                    query += "?" + string.Join("&", paramsList);
+                }
+
+                var users = await _apiService.GetAsync<List<UserDto>>(query);
                 gridUsers.DataSource = users;
             }
             catch (Exception ex)
             {
-                // MessageBox.Show("Error loading users: " + ex.Message);
+                MessageBox.Show("Error loading users: " + ex.Message);
             }
         }
 
         private async void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (gridUsers.SelectedRows.Count == 0 && gridUsers.SelectedCells.Count == 0) return;
-            
-            // Get selected ID (simplistic approach assuming full row select or first cell)
-            int userId = 0;
-            if (gridUsers.CurrentRow != null)
+            if (gridUsers.CurrentRow?.DataBoundItem is UserDto user)
             {
-                 var user = gridUsers.CurrentRow.DataBoundItem as UserDto;
-                 if (user != null) userId = user.Id;
-            }
-
-            if (userId == 0) return;
-
-            var confirm = MessageBox.Show("Delete this user?", "Confirm", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                try
+                var confirm = MessageBox.Show($"Delete user '{user.Username}'?", "Confirm", MessageBoxButtons.YesNo);
+                if (confirm == DialogResult.Yes)
                 {
-                    // HttpClient lacks generic DeleteAsync helper in our service, let's look at ApiService
-                    // Oops, I didn't verify ApiService has Delete. I should probably add it or use raw client.
-                    // For now, I'll assume I need to add DeleteAsync to ApiService quickly or just Implement it here if accessible.
-                    // Accessing private client is not possible.
-                    // I will add Delete method to ApiService in next step if needed, or check file.
-                    // I'll assume I need to add it. For now, comment out logic to avoid build error until I fix Service.
-                    await _apiService.DeleteAsync($"auth/{userId}"); 
-                    MessageBox.Show("User Deleted.");
-                    LoadUsers();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to delete: " + ex.Message);
+                    try
+                    {
+                        await _apiService.DeleteAsync($"auth/{user.Id}"); 
+                        MessageBox.Show("User Deleted.");
+                        LoadUsers();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to delete: " + ex.Message);
+                    }
                 }
             }
         }

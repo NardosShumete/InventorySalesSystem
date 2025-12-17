@@ -12,62 +12,139 @@ namespace InventorySales.Desktop
 
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.gridProducts = new System.Windows.Forms.DataGridView();
-            this.btnAdd = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.gridProducts)).BeginInit();
-            this.SuspendLayout();
+            lblTitle = new Label();
+            gridProducts = new DataGridView();
+            btnAdd = new Button();
+            btnUpdate = new Button();
+            txtSearch = new TextBox();
+            lblSearch = new Label();
+            btnSearch = new Button();
+            btnDelete = new Button();
+            ((System.ComponentModel.ISupportInitialize)gridProducts).BeginInit();
+            SuspendLayout();
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(193, 30);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Product Management";
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(600, 20);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(120, 35);
-            this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = "+ Add Product";
-            this.btnAdd.UseVisualStyleBackColor = false;
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(32, 58, 67);
+            lblTitle.Location = new Point(20, 20);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(346, 45);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Inventory Central";
             // 
             // gridProducts
             // 
-            this.gridProducts.BackgroundColor = System.Drawing.Color.White;
-            this.gridProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridProducts.Location = new System.Drawing.Point(20, 70);
-            this.gridProducts.Name = "gridProducts";
-            this.gridProducts.Size = new System.Drawing.Size(700, 400);
-            this.gridProducts.TabIndex = 1;
+            gridProducts.BackgroundColor = Color.White;
+            gridProducts.BorderStyle = BorderStyle.None;
+            gridProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridProducts.Dock = DockStyle.Bottom;
+            gridProducts.Location = new Point(0, 200);
+            gridProducts.Name = "gridProducts";
+            gridProducts.RowHeadersWidth = 62;
+            gridProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            gridProducts.Size = new Size(1101, 535);
+            gridProducts.TabIndex = 1;
+            // 
+            // btnAdd
+            // 
+            btnAdd.BackColor = Color.FromArgb(67, 160, 71);
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Location = new Point(20, 80);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(120, 45);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "+ Add";
+            btnAdd.UseVisualStyleBackColor = false;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.BackColor = Color.FromArgb(32, 58, 67);
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnUpdate.ForeColor = Color.White;
+            btnUpdate.Location = new Point(150, 80);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(120, 45);
+            btnUpdate.TabIndex = 3;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = false;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.IndianRed;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(280, 80);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(120, 45);
+            btnDelete.TabIndex = 7;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            // 
+            // lblSearch
+            // 
+            lblSearch.AutoSize = true;
+            lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblSearch.Location = new Point(20, 145);
+            lblSearch.Name = "lblSearch";
+            lblSearch.Size = new Size(160, 28);
+            lblSearch.TabIndex = 4;
+            lblSearch.Text = "Find Product:";
+            // 
+            // txtSearch
+            // 
+            txtSearch.Font = new Font("Segoe UI", 10F);
+            txtSearch.Location = new Point(180, 142);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(300, 34);
+            txtSearch.TabIndex = 5;
+            // 
+            // btnSearch
+            // 
+            btnSearch.BackColor = Color.FromArgb(32, 58, 67);
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSearch.ForeColor = Color.White;
+            btnSearch.Location = new Point(490, 139);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(100, 40);
+            btnSearch.TabIndex = 6;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = false;
             // 
             // ProductsUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.gridProducts);
-            this.Controls.Add(this.lblTitle);
-            this.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.Name = "ProductsUserControl";
-            this.Size = new System.Drawing.Size(764, 520);
-            ((System.ComponentModel.ISupportInitialize)(this.gridProducts)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(244, 247, 252);
+            Controls.Add(btnDelete);
+            Controls.Add(btnSearch);
+            Controls.Add(txtSearch);
+            Controls.Add(lblSearch);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnAdd);
+            Controls.Add(gridProducts);
+            Controls.Add(lblTitle);
+            Font = new Font("Segoe UI", 10F);
+            Name = "ProductsUserControl";
+            Size = new Size(1101, 735);
+            ((System.ComponentModel.ISupportInitialize)gridProducts).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridView gridProducts;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

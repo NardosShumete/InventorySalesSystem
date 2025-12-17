@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace InventorySales.Desktop
 {
-    public partial class AddProductForm : Form
+    public partial class UpdateProductForm : Form
     {
         private readonly ApiService _apiService;
+        private readonly int _productId;
 
-        public event EventHandler ProductAdded;
+        public event EventHandler ProductUpdated;
 
-        public AddProductForm()
+        public UpdateProductForm(int productId)
         {
             InitializeComponent();
             _apiService = new ApiService();
+            _productId = productId;
             LoadCategories();
+            LoadProductData();
         }
 
         private async void LoadCategories()
@@ -33,12 +35,30 @@ namespace InventorySales.Desktop
             }
         }
 
+        private async void LoadProductData()
+        {
+            try
+            {
+                var product = await _apiService.GetAsync<ProductDto>($"products/{_productId}");
+                txtName.Text = product.Name;
+                cmbCategory.SelectedValue = product.CategoryId;
+                numPrice.Value = product.UnitPrice;
+                numStock.Value = product.StockQuantity;
+                numReorder.Value = product.ReorderLevel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load product: " + ex.Message);
+                this.Close();
+            }
+        }
+
         private async void btnAddCategory_Click(object sender, EventArgs e)
         {
             string newCategoryName = ShowInputBox("New Category", "Enter category name:");
             if (string.IsNullOrWhiteSpace(newCategoryName)) return;
 
-            try 
+            try
             {
                 var newCat = new CreateCategoryDto { Name = newCategoryName, Description = "" };
                 await _apiService.PostAsync<CreateCategoryDto, CategoryDto>("products/categories", newCat);
@@ -46,7 +66,7 @@ namespace InventorySales.Desktop
             }
             catch (Exception ex)
             {
-                 MessageBox.Show("Failed to add category: " + ex.Message);
+                MessageBox.Show("Failed to add category: " + ex.Message);
             }
         }
 
@@ -64,7 +84,7 @@ namespace InventorySales.Desktop
             TextBox textBox = new TextBox() { Left = 20, Top = 50, Width = 340 };
             Button confirmation = new Button() { Text = "Ok", Left = 250, Width = 100, Top = 100, DialogResult = DialogResult.OK };
             confirmation.Click += (sender, e) => { promptForm.Close(); };
-            
+
             promptForm.Controls.Add(textLabel);
             promptForm.Controls.Add(textBox);
             promptForm.Controls.Add(confirmation);
@@ -81,7 +101,7 @@ namespace InventorySales.Desktop
                 return;
             }
 
-            var newProduct = new CreateProductDto
+            var updateProduct = new CreateProductDto
             {
                 Name = txtName.Text,
                 CategoryId = (int)cmbCategory.SelectedValue,
@@ -94,14 +114,14 @@ namespace InventorySales.Desktop
 
             try
             {
-                await _apiService.PostAsync<CreateProductDto, ProductDto>("products", newProduct);
-                MessageBox.Show("Product added!");
-                ProductAdded?.Invoke(this, EventArgs.Empty);
+                await _apiService.PutAsync($"products/{_productId}", updateProduct);
+                MessageBox.Show("Product updated successfully!");
+                ProductUpdated?.Invoke(this, EventArgs.Empty);
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error saving product: " + ex.Message);
+                MessageBox.Show("Error updating product: " + ex.Message);
             }
         }
 
@@ -109,9 +129,5 @@ namespace InventorySales.Desktop
         {
             this.Close();
         }
-
-        // DTOs (Quick definition if shared lib not avail, or use existing Dto classes if I had a shared Project)
-        // Since we didn't make a shared DTO lib, I define localized DTOs for client here or rely on dynamic.
-        // I will use local classes at bottom for simplicity in this file scope.
     }
 }

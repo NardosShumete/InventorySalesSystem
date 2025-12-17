@@ -18,6 +18,10 @@ namespace InventorySales.Desktop
 
             btnAdd.Click += BtnAdd_Click;
             btnCheckout.Click += BtnCheckout_Click;
+            btnSearchId.Click += BtnSearchId_Click;
+            btnSearchName.Click += BtnSearchName_Click;
+            btnSearchQty.Click += BtnSearchQty_Click;
+            btnSearchPrice.Click += BtnSearchPrice_Click;
             
             // Setup Grid with proper data binding
             gridCart.AutoGenerateColumns = false;
@@ -72,34 +76,114 @@ namespace InventorySales.Desktop
             gridCart.Columns.Add(colTotal);
         }
 
+        private async void BtnSearchId_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtProductId.Text)) return;
+            try
+            {
+                var product = await _apiService.GetAsync<ProductDto>($"products/{txtProductId.Text}");
+                if (product != null)
+                {
+                    txtProductName.Text = product.Name;
+                    txtPrice.Text = product.UnitPrice.ToString("F2");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Product ID not found.");
+            }
+        }
+
+        private async void BtnSearchName_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtProductName.Text)) return;
+            try
+            {
+                var products = await _apiService.GetAsync<List<ProductListDto>>($"products?search={txtProductName.Text}");
+                if (products != null && products.Count > 0)
+                {
+                    var product = products[0];
+                    txtProductId.Text = product.Id.ToString();
+                    txtPrice.Text = product.UnitPrice.ToString("F2");
+                }
+                else
+                {
+                    MessageBox.Show("Product Name not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching product: " + ex.Message);
+            }
+        }
+
+        private async void BtnSearchQty_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtProductId.Text)) return;
+            try
+            {
+                var product = await _apiService.GetAsync<ProductDto>($"products/{txtProductId.Text}");
+                if (product != null)
+                {
+                    int requestedQty = (int)txtQuantity.Value;
+                    if (requestedQty > product.StockQuantity)
+                    {
+                        MessageBox.Show($"Not enough stock! Current stock: {product.StockQuantity}");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Stock is sufficient. (Available: {product.StockQuantity})");
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private async void BtnSearchPrice_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtProductId.Text)) return;
+            try
+            {
+                var product = await _apiService.GetAsync<ProductDto>($"products/{txtProductId.Text}");
+                if (product != null)
+                {
+                    txtPrice.Text = product.UnitPrice.ToString("F2");
+                }
+            }
+            catch { }
+        }
+
         private async void BtnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtProduct.Text)) return;
-            string search = txtProduct.Text;
+            if (string.IsNullOrWhiteSpace(txtProductId.Text))
+            {
+                MessageBox.Show("Please select a product first (ID or Name search).");
+                return;
+            }
 
             try
             {
-                // Fetch products by search
-                var products = await _apiService.GetAsync<List<ProductListDto>>($"products?search={search}");
+                int productId = int.Parse(txtProductId.Text);
+                int quantity = (int)txtQuantity.Value;
                 
-                if (products == null || products.Count == 0)
+                if (quantity <= 0)
                 {
-                    MessageBox.Show("Product not found");
+                    MessageBox.Show("Quantity must be at least 1.");
                     return;
                 }
 
-                if (products.Count > 1)
+                // Fetch current stock info to be safe
+                var product = await _apiService.GetAsync<ProductDto>($"products/{productId}");
+                
+                if (product == null)
                 {
-                    MessageBox.Show($"Found {products.Count} products. Please be more specific with the name or ID.");
+                    MessageBox.Show("Product not found.");
                     return;
                 }
 
-                // Exactly one product found
-                var product = products[0];
-
-                if (product.StockQuantity <= 0)
+                if (product.StockQuantity < (GetCartQuantity(productId) + quantity))
                 {
-                    MessageBox.Show("Product is out of stock!");
+                    MessageBox.Show($"Not enough stock! Available: {product.StockQuantity}");
                     return;
                 }
 
@@ -107,12 +191,7 @@ namespace InventorySales.Desktop
                 var existing = _cart.FirstOrDefault(c => c.ProductId == product.Id);
                 if (existing != null)
                 {
-                    if (existing.Quantity + 1 > product.StockQuantity)
-                    {
-                         MessageBox.Show("Not enough stock.");
-                         return;
-                    }
-                    existing.Quantity++;
+                    existing.Quantity += quantity;
                 }
                 else
                 {
@@ -121,18 +200,31 @@ namespace InventorySales.Desktop
                         ProductId = product.Id, 
                         ProductName = product.Name, 
                         UnitPrice = product.UnitPrice, 
-                        Quantity = 1 
+                        Quantity = quantity 
                     });
                 }
 
                 RefreshCart();
-                txtProduct.Text = ""; // Reset input
-                txtProduct.Focus();
+                ClearInputs();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private int GetCartQuantity(int productId)
+        {
+            return _cart.Where(c => c.ProductId == productId).Sum(c => c.Quantity);
+        }
+
+        private void ClearInputs()
+        {
+            txtProductId.Text = "";
+            txtProductName.Text = "";
+            txtQuantity.Value = 1;
+            txtPrice.Text = "";
+            txtProductId.Focus();
         }
 
         private void RefreshCart()
@@ -155,6 +247,7 @@ namespace InventorySales.Desktop
 
             var saleDto = new CreateSaleDto
             {
+                UserId = Session.UserId,
                 Items = _cart.Select(c => new SaleDetailDto 
                 { 
                     ProductId = c.ProductId, 
@@ -188,6 +281,7 @@ namespace InventorySales.Desktop
 
     public class CreateSaleDto
     {
+        public int UserId { get; set; }
         public List<SaleDetailDto> Items { get; set; } = new List<SaleDetailDto>();
     }
 
