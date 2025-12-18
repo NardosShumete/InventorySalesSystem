@@ -117,10 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblGuidanceContent.Text" xml:space="preserve">
-    <value>1. Navigate to 'Products' to manage your inventory.
-2. Use 'Sales POS' to record new transactions.
-3. View 'Reports' to track performance and stock levels.
-4. Manage users in 'Registration Mgmt' (Admin only).</value>
-  </data>
 </root>

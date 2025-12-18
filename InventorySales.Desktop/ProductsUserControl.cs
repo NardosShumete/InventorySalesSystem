@@ -234,13 +234,21 @@ namespace InventorySales.Desktop
                 _allProducts = await _apiService.GetAsync<List<ProductListDto>>("products");
                 gridProducts.DataSource = _allProducts;
                 
-                // Optional: Formatting headers
+                // Ensure all columns are shown and formatted
+                gridProducts.AutoGenerateColumns = true;
+                gridProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                
                 if (gridProducts.Columns["Id"] != null) gridProducts.Columns["Id"].HeaderText = "ID";
-                if (gridProducts.Columns["CategoryName"] != null) gridProducts.Columns["CategoryName"].HeaderText = "Category";
+                if (gridProducts.Columns["Name"] != null) gridProducts.Columns["Name"].HeaderText = "Product Name";
+                if (gridProducts.Columns["CategoryName"] != null) 
+                {
+                    gridProducts.Columns["CategoryName"].HeaderText = "Category";
+                    gridProducts.Columns["CategoryName"].DisplayIndex = 2; // Position after Name
+                }
                 if (gridProducts.Columns["UnitPrice"] != null) 
                 {
                     gridProducts.Columns["UnitPrice"].HeaderText = "Price";
-                    gridProducts.Columns["UnitPrice"].DefaultCellStyle.Format = "C2";
+                    gridProducts.Columns["UnitPrice"].DefaultCellStyle.Format = "N2";
                 }
                 if (gridProducts.Columns["StockQuantity"] != null) gridProducts.Columns["StockQuantity"].HeaderText = "Stock";
                 if (gridProducts.Columns["ReorderLevel"] != null) gridProducts.Columns["ReorderLevel"].HeaderText = "Reorder Level";

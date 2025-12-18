@@ -14,6 +14,7 @@ namespace InventorySales.Desktop
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
             sidebarPanel = new Panel();
             lblCurrentUser = new Label();
             btnReports = new Button();
@@ -25,6 +26,9 @@ namespace InventorySales.Desktop
             btnExit = new Button();
             btnLogout = new Button();
             contentPanel = new Panel();
+            panelGuidance = new Panel();
+            lblGuidanceTitle = new Label();
+            lblGuidanceContent = new Label();
             card2 = new Panel();
             lblVal2 = new Label();
             lblTitle2 = new Label();
@@ -40,6 +44,7 @@ namespace InventorySales.Desktop
             lblHeader = new Label();
             sidebarPanel.SuspendLayout();
             contentPanel.SuspendLayout();
+            panelGuidance.SuspendLayout();
             card2.SuspendLayout();
             card3.SuspendLayout();
             card1.SuspendLayout();
@@ -197,6 +202,7 @@ namespace InventorySales.Desktop
             // contentPanel
             // 
             contentPanel.BackColor = Color.FromArgb(244, 247, 252);
+            contentPanel.Controls.Add(panelGuidance);
             contentPanel.Controls.Add(card2);
             contentPanel.Controls.Add(card3);
             contentPanel.Controls.Add(card1);
@@ -207,6 +213,40 @@ namespace InventorySales.Desktop
             contentPanel.Padding = new Padding(30);
             contentPanel.Size = new Size(734, 600);
             contentPanel.TabIndex = 1;
+            // 
+            // panelGuidance
+            // 
+            panelGuidance.BackColor = Color.White;
+            panelGuidance.Controls.Add(lblGuidanceTitle);
+            panelGuidance.Controls.Add(lblGuidanceContent);
+            panelGuidance.ForeColor = SystemColors.HotTrack;
+            panelGuidance.Location = new Point(30, 305);
+            panelGuidance.Name = "panelGuidance";
+            panelGuidance.Size = new Size(674, 200);
+            panelGuidance.TabIndex = 4;
+            // 
+            // lblGuidanceTitle
+            // 
+            lblGuidanceTitle.AutoSize = true;
+            lblGuidanceTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblGuidanceTitle.ForeColor = Color.FromArgb(32, 58, 67);
+            lblGuidanceTitle.Location = new Point(20, 20);
+            lblGuidanceTitle.Name = "lblGuidanceTitle";
+            lblGuidanceTitle.Size = new Size(220, 38);
+            lblGuidanceTitle.TabIndex = 0;
+            lblGuidanceTitle.Text = "Getting Started";
+            // 
+            // lblGuidanceContent
+            // 
+            lblGuidanceContent.AutoSize = true;
+            lblGuidanceContent.BackColor = Color.Aqua;
+            lblGuidanceContent.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblGuidanceContent.ForeColor = Color.Blue;
+            lblGuidanceContent.Location = new Point(20, 70);
+            lblGuidanceContent.Name = "lblGuidanceContent";
+            lblGuidanceContent.Size = new Size(591, 120);
+            lblGuidanceContent.TabIndex = 1;
+            lblGuidanceContent.Text = resources.GetString("lblGuidanceContent.Text");
             // 
             // card2
             // 
@@ -355,6 +395,8 @@ namespace InventorySales.Desktop
             sidebarPanel.PerformLayout();
             contentPanel.ResumeLayout(false);
             contentPanel.PerformLayout();
+            panelGuidance.ResumeLayout(false);
+            panelGuidance.PerformLayout();
             card2.ResumeLayout(false);
             card2.PerformLayout();
             card3.ResumeLayout(false);
@@ -393,5 +435,8 @@ namespace InventorySales.Desktop
         private System.Windows.Forms.Label lblTitle3;
         private System.Windows.Forms.Panel strip3;
         private System.Windows.Forms.Label lblCurrentUser;
+        private System.Windows.Forms.Panel panelGuidance;
+        private System.Windows.Forms.Label lblGuidanceTitle;
+        private System.Windows.Forms.Label lblGuidanceContent;
     }
 }

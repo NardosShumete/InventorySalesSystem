@@ -45,10 +45,10 @@ namespace InventorySales.Desktop
             gridUsers.BorderStyle = BorderStyle.None;
             gridUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             gridUsers.Dock = DockStyle.Right;
-            gridUsers.Location = new Point(334, 48);
+            gridUsers.Location = new Point(415, 48);
             gridUsers.Name = "gridUsers";
             gridUsers.RowHeadersWidth = 62;
-            gridUsers.Size = new Size(696, 532);
+            gridUsers.Size = new Size(696, 581);
             gridUsers.TabIndex = 2;
             // 
             // btnAdd
@@ -158,7 +158,7 @@ namespace InventorySales.Desktop
             panelActions.Dock = DockStyle.Left;
             panelActions.Location = new Point(0, 48);
             panelActions.Name = "panelActions";
-            panelActions.Size = new Size(328, 532);
+            panelActions.Size = new Size(328, 581);
             panelActions.TabIndex = 4;
             // 
             // UsersUserControl
@@ -171,7 +171,7 @@ namespace InventorySales.Desktop
             Controls.Add(lblTitle);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "UsersUserControl";
-            Size = new Size(1030, 580);
+            Size = new Size(1111, 629);
             ((System.ComponentModel.ISupportInitialize)gridUsers).EndInit();
             panelActions.ResumeLayout(false);
             panelActions.PerformLayout();

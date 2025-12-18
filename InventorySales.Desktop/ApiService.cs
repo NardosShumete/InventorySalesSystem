@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +83,7 @@ namespace InventorySales.Desktop
         public int Id { get; set; }
         public string Username { get; set; }
         public string Role { get; set; }
+        [Browsable(false)]
         public string Token { get; set; }
         public int PerformancePoints { get; set; }
     }

@@ -18,6 +18,14 @@ namespace InventorySales.Desktop
             InitializeComponent();
             InitializeNavigation();
             lblCurrentUser.Text = $"User: {Session.Username} ({Session.Role})";
+            this.Resize += (s, e) => CenterGuidance();
+            this.Load += (s, e) => CenterGuidance();
+        }
+
+        private void CenterGuidance()
+        {
+            panelGuidance.Left = (contentPanel.ClientSize.Width - panelGuidance.Width) / 2;
+            panelGuidance.Top = (contentPanel.ClientSize.Height - panelGuidance.Height) / 2 + 50; // offset down a bit from cards
         }
 
         private void InitializeNavigation()
@@ -68,6 +76,7 @@ namespace InventorySales.Desktop
             _salesView.Visible = false;
             _usersView.Visible = false;
             _reportsView.Visible = false;
+            panelGuidance.Visible = false;
 
             if (view != null)
             {
@@ -82,7 +91,10 @@ namespace InventorySales.Desktop
             else
             {
                 // Refresh Dashboard Data when showing "Overview"
+                panelGuidance.Visible = true;
+                panelGuidance.BringToFront();
                 LoadDashboardData();
+                CenterGuidance();
             }
         }
 

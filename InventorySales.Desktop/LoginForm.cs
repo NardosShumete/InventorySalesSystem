@@ -11,6 +11,15 @@ namespace InventorySales.Desktop
         {
             InitializeComponent();
             _apiService = new ApiService();
+            panel1.BackColor = Color.FromArgb(200, Color.White); // Slightly transparent
+            this.Resize += (s, e) => CenterPanel();
+            this.Load += (s, e) => CenterPanel();
+        }
+
+        private void CenterPanel()
+        {
+            panel1.Left = (this.ClientSize.Width - panel1.Width) / 2;
+            panel1.Top = (this.ClientSize.Height - panel1.Height) / 2;
         }
 
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)

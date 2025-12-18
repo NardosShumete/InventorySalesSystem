@@ -38,7 +38,7 @@ namespace InventorySales.Desktop
             lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblTitle.Location = new Point(55, 9);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(210, 38);
+            lblTitle.Size = new Size(223, 38);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Update Product";
             // 
@@ -76,17 +76,6 @@ namespace InventorySales.Desktop
             cmbCategory.Size = new Size(250, 36);
             cmbCategory.TabIndex = 4;
             // 
-            // btnAddCategory
-            // 
-            btnAddCategory.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnAddCategory.Location = new Point(280, 166);
-            btnAddCategory.Name = "btnAddCategory";
-            btnAddCategory.Size = new Size(40, 36);
-            btnAddCategory.TabIndex = 50;
-            btnAddCategory.Text = "+";
-            btnAddCategory.UseVisualStyleBackColor = true;
-            btnAddCategory.Click += btnAddCategory_Click;
-            // 
             // lblPrice
             // 
             lblPrice.AutoSize = true;
@@ -116,7 +105,7 @@ namespace InventorySales.Desktop
             // 
             // numStock
             // 
-            numStock.Location = new Point(20, 314);
+            numStock.Location = new Point(20, 332);
             numStock.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numStock.Name = "numStock";
             numStock.Size = new Size(250, 34);
@@ -125,7 +114,7 @@ namespace InventorySales.Desktop
             // lblReorder
             // 
             lblReorder.AutoSize = true;
-            lblReorder.Location = new Point(20, 351);
+            lblReorder.Location = new Point(20, 412);
             lblReorder.Name = "lblReorder";
             lblReorder.Size = new Size(130, 28);
             lblReorder.TabIndex = 9;
@@ -133,7 +122,7 @@ namespace InventorySales.Desktop
             // 
             // numReorder
             // 
-            numReorder.Location = new Point(20, 382);
+            numReorder.Location = new Point(20, 443);
             numReorder.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numReorder.Name = "numReorder";
             numReorder.Size = new Size(250, 34);
@@ -144,9 +133,9 @@ namespace InventorySales.Desktop
             lblReorderDesc.AutoSize = true;
             lblReorderDesc.Font = new Font("Segoe UI", 8F, FontStyle.Italic);
             lblReorderDesc.ForeColor = Color.DimGray;
-            lblReorderDesc.Location = new Point(20, 319);
+            lblReorderDesc.Location = new Point(20, 380);
             lblReorderDesc.Name = "lblReorderDesc";
-            lblReorderDesc.Size = new Size(245, 21);
+            lblReorderDesc.Size = new Size(228, 21);
             lblReorderDesc.TabIndex = 11;
             lblReorderDesc.Text = "* Warns when stock falls below.";
             // 
@@ -156,7 +145,7 @@ namespace InventorySales.Desktop
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(150, 422);
+            btnSave.Location = new Point(150, 483);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(120, 48);
             btnSave.TabIndex = 11;
@@ -164,12 +153,23 @@ namespace InventorySales.Desktop
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
+            // btnAddCategory
+            // 
+            btnAddCategory.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnAddCategory.Location = new Point(280, 166);
+            btnAddCategory.Name = "btnAddCategory";
+            btnAddCategory.Size = new Size(40, 36);
+            btnAddCategory.TabIndex = 50;
+            btnAddCategory.Text = "+";
+            btnAddCategory.UseVisualStyleBackColor = true;
+            btnAddCategory.Click += btnAddCategory_Click;
+            // 
             // btnCancel
             // 
             btnCancel.BackColor = Color.Gray;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(20, 422);
+            btnCancel.Location = new Point(20, 483);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(100, 48);
             btnCancel.TabIndex = 12;
@@ -182,7 +182,7 @@ namespace InventorySales.Desktop
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.InactiveCaption;
-            ClientSize = new Size(428, 493);
+            ClientSize = new Size(436, 577);
             Controls.Add(btnCancel);
             Controls.Add(btnAddCategory);
             Controls.Add(btnSave);

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace InventorySales.Api.DTOs
@@ -15,6 +16,7 @@ namespace InventorySales.Api.DTOs
         public int Id { get; set; }
         public string Username { get; set; }
         public string Role { get; set; }
+        [Browsable(false)]
         public string Token { get; set; } // Simplified JWT or Session token
         public int PerformancePoints { get; set; }
     }

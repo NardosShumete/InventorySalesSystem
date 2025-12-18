@@ -24,7 +24,7 @@ namespace InventorySales.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] string search = null)
         {
-            var products = await _productRepo.GetAllAsync();
+            var products = await _productRepo.GetAllAsync(p => p.Category);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
