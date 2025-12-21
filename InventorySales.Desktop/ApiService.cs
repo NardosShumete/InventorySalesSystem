@@ -74,6 +74,7 @@ namespace InventorySales.Desktop
     public class RegisterDto
     {
         public string Username { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
     }
@@ -82,6 +83,7 @@ namespace InventorySales.Desktop
     {
         public int Id { get; set; }
         public string Username { get; set; }
+        public string Email { get; set; }
         public string Role { get; set; }
         [Browsable(false)]
         public string Token { get; set; }

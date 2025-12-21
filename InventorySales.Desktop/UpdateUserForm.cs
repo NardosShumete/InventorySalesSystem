@@ -16,6 +16,7 @@ namespace InventorySales.Desktop
             _user = user;
             
             txtUser.Text = user.Username;
+            txtEmail.Text = user.Email;
             cmbRole.SelectedItem = user.Role;
             
             btnSave.Click += BtnSave_Click;
@@ -23,16 +24,30 @@ namespace InventorySales.Desktop
 
         private async void BtnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUser.Text))
+            if (string.IsNullOrWhiteSpace(txtUser.Text) || string.IsNullOrWhiteSpace(txtEmail.Text))
             {
-                MessageBox.Show("Username cannot be empty");
+                MessageBox.Show("Username and Email cannot be empty");
+                return;
+            }
+
+            // Standard email validation regex
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                 MessageBox.Show("Please enter a valid email address (e.g. user@domain.com)");
+                 return;
+            }
+
+            if (!string.IsNullOrEmpty(txtPass.Text) && txtPass.Text.Length < 8)
+            {
+                MessageBox.Show("Password must be at least 8 characters");
                 return;
             }
 
             var dto = new RegisterDto
             {
                 Username = txtUser.Text,
-                Password = txtPass.Text, // Can be empty to skip update
+                Email = txtEmail.Text,
+                Password = string.IsNullOrWhiteSpace(txtPass.Text) ? null : txtPass.Text,
                 Role = cmbRole.SelectedItem?.ToString() ?? "User"
             };
 

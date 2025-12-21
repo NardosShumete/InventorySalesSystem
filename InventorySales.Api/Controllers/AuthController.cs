@@ -66,9 +66,21 @@ namespace InventorySales.Api.Controllers
                 return BadRequest("Username already exists");
             }
 
+            if (await _context.Users.AnyAsync(u => u.Email == registerDto.Email))
+            {
+                return BadRequest("Email already exists");
+            }
+
+            // Password is mandatory for registration
+            if (string.IsNullOrEmpty(registerDto.Password)) 
+            {
+                 return BadRequest("Password is required.");
+            }
+
             var user = new Data.Entities.User
             {
                 Username = registerDto.Username,
+                Email = registerDto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
                 Role = registerDto.Role
             };
@@ -80,6 +92,7 @@ namespace InventorySales.Api.Controllers
             {
                 Id = user.Id,
                 Username = user.Username,
+                Email = user.Email,
                 Role = user.Role
             });
         }
@@ -113,6 +126,7 @@ namespace InventorySales.Api.Controllers
                 { 
                     Id = u.Id, 
                     Username = u.Username, 
+                    Email = u.Email,
                     Role = u.Role,
                     PerformancePoints = points
                 });
@@ -133,7 +147,15 @@ namespace InventorySales.Api.Controllers
                 return BadRequest("Username already exists");
             }
 
+            // Check if email taken by another user
+            if (await _context.Users.AnyAsync(u => u.Email == updateDto.Email && u.Id != id))
+            {
+                return BadRequest("Email already exists");
+            }
+
             user.Username = updateDto.Username;
+            user.Email = updateDto.Email;
+
             if (!string.IsNullOrEmpty(updateDto.Password))
             {
                 user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updateDto.Password);

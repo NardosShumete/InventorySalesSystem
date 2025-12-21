@@ -13,6 +13,11 @@ namespace InventorySales.Data.Entities
         [Required]
         public string PasswordHash { get; set; }
 
+        [Required]
+        [EmailAddress]
+        [MaxLength(100)]
+        public string Email { get; set; }
+
         [MaxLength(20)]
         public string Role { get; set; } = "User"; // Admin, User
     }

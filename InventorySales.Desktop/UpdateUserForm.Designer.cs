@@ -15,6 +15,8 @@ namespace InventorySales.Desktop
             lblTitle = new Label();
             lblUser = new Label();
             txtUser = new TextBox();
+            lblEmail = new Label();
+            txtEmail = new TextBox();
             lblPass = new Label();
             txtPass = new TextBox();
             lblRole = new Label();
@@ -51,11 +53,28 @@ namespace InventorySales.Desktop
             txtUser.Size = new Size(300, 34);
             txtUser.TabIndex = 5;
             // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblEmail.Location = new Point(20, 160);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(111, 28);
+            lblEmail.TabIndex = 8;
+            lblEmail.Text = "Email:";
+            // 
+            // txtEmail
+            // 
+            txtEmail.Location = new Point(20, 195);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(300, 34);
+            txtEmail.TabIndex = 9;
+            // 
             // lblPass
             // 
             lblPass.AutoSize = true;
             lblPass.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblPass.Location = new Point(20, 160);
+            lblPass.Location = new Point(20, 240);
             lblPass.Name = "lblPass";
             lblPass.Size = new Size(106, 28);
             lblPass.TabIndex = 4;
@@ -63,7 +82,9 @@ namespace InventorySales.Desktop
             // 
             // txtPass
             // 
-            txtPass.Location = new Point(20, 195);
+            // txtPass
+            // 
+            txtPass.Location = new Point(20, 275);
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
             txtPass.Size = new Size(300, 34);
@@ -73,7 +94,7 @@ namespace InventorySales.Desktop
             // 
             lblNote.AutoSize = true;
             lblNote.Font = new Font("Segoe UI", 8F, FontStyle.Italic);
-            lblNote.Location = new Point(20, 230);
+            lblNote.Location = new Point(20, 310);
             lblNote.Name = "lblNote";
             lblNote.Size = new Size(230, 21);
             lblNote.Text = "(Leave blank to keep current)";
@@ -82,7 +103,7 @@ namespace InventorySales.Desktop
             // 
             lblRole.AutoSize = true;
             lblRole.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblRole.Location = new Point(20, 260);
+            lblRole.Location = new Point(20, 340);
             lblRole.Name = "lblRole";
             lblRole.Size = new Size(59, 28);
             lblRole.TabIndex = 2;
@@ -92,7 +113,7 @@ namespace InventorySales.Desktop
             // 
             cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRole.Items.AddRange(new object[] { "Admin", "User", "Manager" });
-            cmbRole.Location = new Point(20, 295);
+            cmbRole.Location = new Point(20, 375);
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(300, 36);
             cmbRole.TabIndex = 1;
@@ -103,7 +124,7 @@ namespace InventorySales.Desktop
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(20, 350);
+            btnSave.Location = new Point(20, 430);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(300, 50);
             btnSave.TabIndex = 0;
@@ -115,13 +136,15 @@ namespace InventorySales.Desktop
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(244, 247, 252);
-            ClientSize = new Size(350, 430);
+            ClientSize = new Size(350, 510);
             Controls.Add(btnSave);
             Controls.Add(cmbRole);
             Controls.Add(lblRole);
             Controls.Add(lblNote);
             Controls.Add(txtPass);
             Controls.Add(lblPass);
+            Controls.Add(txtEmail);
+            Controls.Add(lblEmail);
             Controls.Add(txtUser);
             Controls.Add(lblUser);
             Controls.Add(lblTitle);
@@ -138,6 +161,8 @@ namespace InventorySales.Desktop
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.TextBox txtUser;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label lblPass;
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.Label lblNote;

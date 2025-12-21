@@ -32,7 +32,7 @@ namespace InventorySales.Data
 
             // Password is "12345678" (Now hashed with BCrypt)
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "admin", PasswordHash = "$2a$11$Ka8dOJsdn8/r9XFAvZrHu.4wh6.st5D5GGGQpBBKhUr8HGGFDyQ7u", Role = "Admin" }
+                new User { Id = 1, Username = "admin", PasswordHash = "$2a$11$Ka8dOJsdn8/r9XFAvZrHu.4wh6.st5D5GGGQpBBKhUr8HGGFDyQ7u", Role = "Admin", Email = "admin@inventory.com" }
             );
 
             modelBuilder.Entity<Product>().HasData(
